@@ -1,0 +1,22 @@
+version: '3.8'
+networks:
+  laravel:
+services:
+
+  php:
+    container_name: laravel_php
+    build:
+      context: ./php
+    ports:
+      - '8000:80'
+    volumes:
+      - ./src:/var/www/laravel_docker
+      - ./apache/default.conf:/etc/apache2/sites-enabled/000-default.conf
+      - /var/www/laravel_docker/src/vendor/
+      # You're probably uploading files here
+      - ./public/assets:/var/www/laravel_docker/public/assets
+      # Note: You might need to mount some other files / folders that changes
+      - ./.docker/php/local.ini:/usr/local/etc/php/conf.d/local.ini
+    # depends_on:
+    #   - laravel_database
+
